@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ComicBookStore.Models.Authored>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ComicBook.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Writer.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WriterId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ComicBookId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ComicBook.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Writer.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WriterId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ComicBookId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AuthoredId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AuthoredId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AuthoredId })
+        </td>
+    </tr>
+}
+
+</table>

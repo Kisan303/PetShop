@@ -1,0 +1,50 @@
+﻿@model ComicBookStore.Models.Authored
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Authored</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ComicBook.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComicBook.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Writer.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Writer.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WriterId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WriterId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ComicBookId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComicBookId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AuthoredId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

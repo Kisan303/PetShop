@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Writers" EntityType="Model1.Store.Writers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ComicBooks" EntityType="Model1.Store.ComicBooks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Publishers" EntityType="Model1.Store.Publishers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Authoreds" EntityType="Model1.Store.Authoreds" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="WriterAuthored" Association="Model1.Store.WriterAuthored">
+      <End Role="Writer" EntitySet="Writers" />
+      <End Role="Authored" EntitySet="Authoreds" />
+    </AssociationSet>
+    <AssociationSet Name="ComicBookAuthored" Association="Model1.Store.ComicBookAuthored">
+      <End Role="ComicBook" EntitySet="ComicBooks" />
+      <End Role="Authored" EntitySet="Authoreds" />
+    </AssociationSet>
+    <AssociationSet Name="PublisherComicBook" Association="Model1.Store.PublisherComicBook">
+      <End Role="Publisher" EntitySet="Publishers" />
+      <End Role="ComicBook" EntitySet="ComicBooks" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Writers">
+    <Key>
+      <PropertyRef Name="WriterId" />
+    </Key>
+    <Property Name="WriterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ComicBooks">
+    <Key>
+      <PropertyRef Name="ComicBookId" />
+    </Key>
+    <Property Name="ComicBookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Published" Type="datetime" Nullable="false" />
+    <Property Name="PublisherPublisherId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Publishers">
+    <Key>
+      <PropertyRef Name="PublisherId" />
+    </Key>
+    <Property Name="PublisherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Authoreds">
+    <Key>
+      <PropertyRef Name="AuthoredId" />
+    </Key>
+    <Property Name="AuthoredId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WriterId" Type="int" Nullable="false" />
+    <Property Name="ComicBookId" Type="int" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="WriterWriterId" Type="int" Nullable="false" />
+    <Property Name="ComicBookComicBookId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="WriterAuthored">
+    <End Role="Writer" Type="Model1.Store.Writers" Multiplicity="1" />
+    <End Role="Authored" Type="Model1.Store.Authoreds" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Writer">
+        <PropertyRef Name="WriterId" />
+      </Principal>
+      <Dependent Role="Authored">
+        <PropertyRef Name="WriterWriterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ComicBookAuthored">
+    <End Role="ComicBook" Type="Model1.Store.ComicBooks" Multiplicity="1" />
+    <End Role="Authored" Type="Model1.Store.Authoreds" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ComicBook">
+        <PropertyRef Name="ComicBookId" />
+      </Principal>
+      <Dependent Role="Authored">
+        <PropertyRef Name="ComicBookComicBookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PublisherComicBook">
+    <End Role="Publisher" Type="Model1.Store.Publishers" Multiplicity="1" />
+    <End Role="ComicBook" Type="Model1.Store.ComicBooks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="PublisherId" />
+      </Principal>
+      <Dependent Role="ComicBook">
+        <PropertyRef Name="PublisherPublisherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Writers" EntityType="Model1.Writer" />
+          <EntitySet Name="ComicBooks" EntityType="Model1.ComicBook" />
+          <EntitySet Name="Publishers" EntityType="Model1.Publisher" />
+          <EntitySet Name="Authoreds" EntityType="Model1.Authored" />
+          <AssociationSet Name="WriterAuthored" Association="Model1.WriterAuthored">
+            <End Role="Writer" EntitySet="Writers" />
+            <End Role="Authored" EntitySet="Authoreds" />
+          </AssociationSet>
+          <AssociationSet Name="ComicBookAuthored" Association="Model1.ComicBookAuthored">
+            <End Role="ComicBook" EntitySet="ComicBooks" />
+            <End Role="Authored" EntitySet="Authoreds" />
+          </AssociationSet>
+          <AssociationSet Name="PublisherComicBook" Association="Model1.PublisherComicBook">
+            <End Role="Publisher" EntitySet="Publishers" />
+            <End Role="ComicBook" EntitySet="ComicBooks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Writer">
+          <Key>
+            <PropertyRef Name="WriterId" />
+          </Key>
+          <Property Name="WriterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Authoreds" Relationship="Model1.WriterAuthored" FromRole="Writer" ToRole="Authored" />
+        </EntityType>
+        <EntityType Name="ComicBook">
+          <Key>
+            <PropertyRef Name="ComicBookId" />
+          </Key>
+          <Property Name="ComicBookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Published" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Authoreds" Relationship="Model1.ComicBookAuthored" FromRole="ComicBook" ToRole="Authored" />
+          <NavigationProperty Name="Publisher" Relationship="Model1.PublisherComicBook" FromRole="ComicBook" ToRole="Publisher" />
+          <Property Name="PublisherPublisherId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Publisher">
+          <Key>
+            <PropertyRef Name="PublisherId" />
+          </Key>
+          <Property Name="PublisherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="ComicBooks" Relationship="Model1.PublisherComicBook" FromRole="Publisher" ToRole="ComicBook" />
+        </EntityType>
+        <EntityType Name="Authored">
+          <Key>
+            <PropertyRef Name="AuthoredId" />
+          </Key>
+          <Property Name="AuthoredId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WriterId" Type="Int32" Nullable="false" />
+          <Property Name="ComicBookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Writer" Relationship="Model1.WriterAuthored" FromRole="Authored" ToRole="Writer" />
+          <Property Name="WriterWriterId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ComicBook" Relationship="Model1.ComicBookAuthored" FromRole="Authored" ToRole="ComicBook" />
+          <Property Name="ComicBookComicBookId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="WriterAuthored">
+          <End Type="Model1.Writer" Role="Writer" Multiplicity="1" />
+          <End Type="Model1.Authored" Role="Authored" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Writer">
+              <PropertyRef Name="WriterId" />
+            </Principal>
+            <Dependent Role="Authored">
+              <PropertyRef Name="WriterWriterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ComicBookAuthored">
+          <End Type="Model1.ComicBook" Role="ComicBook" Multiplicity="1" />
+          <End Type="Model1.Authored" Role="Authored" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ComicBook">
+              <PropertyRef Name="ComicBookId" />
+            </Principal>
+            <Dependent Role="Authored">
+              <PropertyRef Name="ComicBookComicBookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PublisherComicBook">
+          <End Type="Model1.Publisher" Role="Publisher" Multiplicity="1" />
+          <End Type="Model1.ComicBook" Role="ComicBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publisher">
+              <PropertyRef Name="PublisherId" />
+            </Principal>
+            <Dependent Role="ComicBook">
+              <PropertyRef Name="PublisherPublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Writers">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Writer)">
+        <MappingFragment StoreEntitySet="Writers">
+          <ScalarProperty Name="WriterId" ColumnName="WriterId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ComicBooks">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.ComicBook)">
+        <MappingFragment StoreEntitySet="ComicBooks">
+          <ScalarProperty Name="ComicBookId" ColumnName="ComicBookId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Published" ColumnName="Published" />
+          <ScalarProperty Name="PublisherPublisherId" ColumnName="PublisherPublisherId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Publishers">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Publisher)">
+        <MappingFragment StoreEntitySet="Publishers">
+          <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Authoreds">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Authored)">
+        <MappingFragment StoreEntitySet="Authoreds">
+          <ScalarProperty Name="AuthoredId" ColumnName="AuthoredId" />
+          <ScalarProperty Name="WriterId" ColumnName="WriterId" />
+          <ScalarProperty Name="ComicBookId" ColumnName="ComicBookId" />
+          <ScalarProperty Name="WriterWriterId" ColumnName="WriterWriterId" />
+          <ScalarProperty Name="ComicBookComicBookId" ColumnName="ComicBookComicBookId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
